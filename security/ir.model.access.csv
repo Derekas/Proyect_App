@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dealer_app_article_model,dealer_app.article_model,model_dealer_app_article_model,base.group_user,1,1,1,1
+access_dealer_app_client_model,dealer_app.client_model,model_dealer_app_client_model,base.group_user,1,1,1,1
+access_dealer_app_invoice_model,dealer_app.invoice_model,model_dealer_app_invoice_model,base.group_user,1,1,1,1
+access_dealer_app_refund_model,dealer_app.refund_model,model_dealer_app_refund_model,base.group_user,1,1,1,1

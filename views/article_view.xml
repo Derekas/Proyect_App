@@ -1,0 +1,56 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="dealer_app.article_model_list">
+      <field name="name">Article List</field>
+      <field name="model">dealer_app.article_model</field>
+      <field name="arch" type="xml">
+        <tree decoration-danger="stock &lt; 10">
+          <field name="name"/>
+          <field name="description"/>
+          <field name="price"/>
+          <field name="stock"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="dealer_app.action_window_article">
+      <field name="name">Article Windows</field>
+      <field name="res_model">dealer_app.article_model</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="dealer_app.action_server">
+      <field name="name">dealer_app server</field>
+      <field name="model_id" ref="model_dealer_app_dealer_app"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+
+    <menuitem name="dealer_app" id="dealer_app.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Operations" id="dealer_app.menu_operations" parent="dealer_app.menu_root"/>
+    <!-- actions -->
+
+    <menuitem name="Articles" id="dealer_app.menu_article_list" parent="dealer_app.menu_operations"
+              action="dealer_app.action_window_article"/>
+  </data>
+</odoo>

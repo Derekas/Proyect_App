@@ -1,0 +1,72 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="dealer_app.invoice_model_form">
+      <field name="name">Invoice Form</field>
+      <field name="model">dealer_app.invoice_model</field>
+      <field name="arch" type="xml">
+        <form>
+          <!-- <header>
+            <button type="object" name="confirm" string="Confirm" class="oe_highlight"/>
+            <field name="status" widget="statusbar" />
+          </header>-->
+          <sheet>
+            <group>
+              <field name="reference" />
+              <field name="date" />
+              <field name="base" />
+              <field name="vat" />
+              <field name="total" />
+              </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="dealer_app.invoice_model_list">
+      <field name="name">Invoice List</field>
+      <field name="model">dealer_app.invoice_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="reference"/>
+          <field name="date"/>
+          <field name="base"/>
+          <field name="vat"/>
+          <field name="total"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="dealer_app.action_window_invoice">
+      <field name="name">Invoice Windows</field>
+      <field name="res_model">dealer_app.invoice_model</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="dealer_app.action_server">
+      <field name="name">dealer_app server</field>
+      <field name="model_id" ref="model_dealer_app_dealer_app"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+
+    <menuitem name="Invoice" id="dealer_app.menu_invoice_list" parent="dealer_app.menu_operations"
+              action="dealer_app.action_window_invoice"/>
+  </data>
+</odoo>

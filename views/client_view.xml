@@ -1,0 +1,119 @@
+<odoo>
+  <data>
+
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="dealer_app.client_model_form">
+      <field name="name">Client Form</field>
+      <field name="model">dealer_app.client_model</field>
+      <field name="arch" type="xml">
+        <form string="Client">
+          <sheet>
+            <notebook>
+              <page string="Personal Data">
+                <group>
+                  <label for="dni" class="oe_edit_only"/>
+                  <h1>
+                    <field name="dni"/>
+                  </h1>
+                  <field name="photo" widget="image"/>
+                  <field name="name"/>
+                  <field name="surname"/>
+                  <field name="phone" widget="phone"/>
+                  <field name="email" widget="email"/>
+                </group>
+              </page>
+              <!-- <page string="Invoices">
+                <group>
+                  <field name="invoices_ids"/>
+                </group>
+              </page>-->
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+
+
+    <record model="ir.ui.view" id="invoices_app.client_model_form">
+      <field name="name">Client Form</field>
+      <field name="model">dealer_app.client_model</field>
+      <field name="arch" type="xml">
+        <form string="Client">
+          <sheet>
+            <notebook>
+              <page string="Personal Data">
+                <group>
+                  <label for="dni" class="oe_edit_only"/>
+                  <h1>
+                    <field name="dni"/>
+                  </h1>
+                  <field name="photo" widget="image"/>
+                  <field name="name"/>
+                  <field name="surname"/>
+                  <field name="phone" widget="phone"/>
+                  <field name="email" widget="email"/>
+                </group>
+              </page>
+              <!-- <page string="Invoices">
+                <group>
+                  <field name="invoices_ids"/>
+                </group>
+              </page>-->
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="dealer_app.client_model_list">
+      <field name="name">Client List</field>
+      <field name="model">dealer_app.client_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="dni"/>
+          <field name="name"/>
+          <field name="surname"/>
+          <field name="phone"/>
+          <field name="email"/>
+        </tree>
+      </field>
+    </record>
+
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="dealer_app.action_window_client">
+      <field name="name">Client Windows</field>
+      <field name="res_model">dealer_app.client_model</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="dealer_app.action_server">
+      <field name="name">dealer_app server</field>
+      <field name="model_id" ref="model_dealer_app_dealer_app"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+
+    <menuitem name="Clients" id="dealer_app.menu_client_list" parent="dealer_app.menu_operations"
+              action="dealer_app.action_window_client"/>
+  </data>
+</odoo>
