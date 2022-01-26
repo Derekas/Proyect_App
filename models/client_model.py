@@ -15,6 +15,10 @@ class ClientModel(models.Model):
     phone = fields.Char(string="Phone",size=9,help="Phone")
     email = fields.Char(string="Email",required=True,help="Email")
 
+    invoices_ids=fields.One2many("dealer_app.invoice_model","client_id",string="Invoices")
+    refund_ids=fields.One2many("dealer_app.refund_model","client_id",string="Invoices")
+
+
     @api.constrains('dni')
     def validate_dni(self):
         if not self.check_DNI(self.dni):
