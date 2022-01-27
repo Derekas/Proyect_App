@@ -15,13 +15,46 @@
       </field>
     </record>
 
+    <record model="ir.ui.view" id="dealer_app.article_model_kanban">
+      <field name="name">Kanban List</field>
+      <field name="model">dealer_app.article_model</field>
+      <field name="arch" type="xml">
+        <kanban class="o_res_partner_kanban">
+          <field name="name" />
+          <field name="description" />
+          <field name="price" />
+          <field name="stock" />
+          <field name="photo" />
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_global_click">
+                <div class="o_kanban_image">
+                  <field name="photo" nolabel="1" widget="image" class="oe_right oe_avatar" />
+                </div>
+                <div class="oe_kanban_details">
+                  <strong>
+                    <field name="name" class="oe_inline" />
+                  </strong>
+                  <div t-if="record.stock.value">
+                    <t t-esc="record.stock.value" />
+                  </div>
+                  <div t-if="record.price.value">
+                    <t t-esc="record.price.value" />
+                  </div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
 
     <!-- actions opening views on models -->
 
     <record model="ir.actions.act_window" id="dealer_app.action_window_article">
       <field name="name">Article Windows</field>
       <field name="res_model">dealer_app.article_model</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">kanban,tree,form</field>
     </record>
 
 

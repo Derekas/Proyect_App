@@ -23,6 +23,7 @@ class InvoiceModel(models.Model):
     
     def confirm(self):
         self.ensure_one()
+        self._cr.autocommit(False)
         if self.status=="Draft":
             self.status="Confirm"
             for rec in self.lines_ids:
@@ -30,11 +31,10 @@ class InvoiceModel(models.Model):
                     rec.product_id.stock -= rec.quantity
                 else:
                     raise ValidationError("There is no Stock of "+rec.product_id.name+"!")
+        self._cr.commit()
+        self._cr.autocommit(True)
         return True
 
-    def confirm(self):
-        self.status="Confirm"
-        return True
 
     @api.model 
     def create(self, vals): 

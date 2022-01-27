@@ -7,6 +7,7 @@
       <field name="model">dealer_app.lines_model</field>
       <field name="arch" type="xml">
         <tree>
+          <field name="product_id"/>
           <field name="quantity"/>
         </tree>
       </field>

@@ -21,10 +21,16 @@
               <field name="lines_ids" attrs="{'readonly' :[('status','=','Confirm')]}">
                 <form>
                 <group>
+                  
                   <field name="product_id" />
                   <field name="quantity" />
+                  
                 </group>
               </form>
+              <tree>
+                <field name="product_id" />
+                <field name="quantity" />
+                </tree>
               </field>
               <field name="client_id" attrs="{'readonly' :[('status','=','Confirm')]}"/>
             </group>
@@ -49,6 +55,44 @@
       </field>
     </record>
 
+    <record model="ir.ui.view" id="dealer_app.invoice_calendar">
+      <field name="name">Invoice Calendar</field>
+      <field name="model">dealer_app.invoice_model</field>
+      <field name="arch" type="xml">
+        <calendar date_start="date" color="client_id" mode="month" event_open_popup="True" form_view_id="invoices_app.invoice_model_form" quick_add="False">
+          <field name="reference"/>
+          <field name="total"/>
+          <field name="client_id"/>
+      </calendar>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="dealer_app.invoice_pivot">
+      <field name="name">Invoice Pivot</field>
+      <field name="model">dealer_app.invoice_model</field>
+      <field name="arch" type="xml">
+        <pivot>
+          <field name="client_id" type="row"/>
+          <field name="date"/>
+          <field name="lines_ids"/>
+          <field name="base"/>
+          <field name="vat"/>
+          <field name="total" type="measure"/>
+          
+        </pivot>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="dealer_app.invoice_graph">
+      <field name="name">Invoice Graph</field>
+      <field name="model">dealer_app.invoice_model</field>
+      <field name="arch" type="xml">
+        <graph type="bar">
+          <field name="client_id" type="row"/>
+          <field name="date" interval="month"/>
+          <field name="total" type="measure" />
+        </graph>
+      </field>
+    </record>
 
     <record id="reference_test" model="ir.sequence">
       <field name="name">Reference Test</field>
@@ -62,7 +106,7 @@
     <record model="ir.actions.act_window" id="dealer_app.action_window_invoice">
       <field name="name">Invoice Windows</field>
       <field name="res_model">dealer_app.invoice_model</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,calendar,graph,pivot</field>
     </record>
 
 

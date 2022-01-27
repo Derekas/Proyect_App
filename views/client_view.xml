@@ -85,6 +85,40 @@
       </field>
     </record>
 
+    <record model="ir.ui.view" id="dealer_app.client_model_kanban">
+      <field name="name">Kanban List</field>
+      <field name="model">dealer_app.client_model</field>
+      <field name="arch" type="xml">
+        <kanban class="o_res_partner_kanban">
+          <field name="dni" />
+          <field name="name" />
+          <field name="photo" />
+          <field name="surname" />
+          <field name="email" />
+          <field name="phone" />
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_global_click">
+                <div class="o_kanban_image">
+                  <field name="photo" nolabel="1" widget="image" class="oe_right oe_avatar" />
+                </div>
+                <div class="oe_kanban_details">
+                  <strong>
+                    <field name="surname" class="oe_inline" />,<field name="name" class="oe_inline" />
+                  </strong>
+                  <div t-if="record.phone.value">
+                    <t t-esc="record.phone.value" />
+                  </div>
+                  <div t-if="record.email.value">
+                    <t t-esc="record.email.value" />
+                  </div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
 
 
     <!-- actions opening views on models -->
@@ -92,7 +126,7 @@
     <record model="ir.actions.act_window" id="dealer_app.action_window_client">
       <field name="name">Client Windows</field>
       <field name="res_model">dealer_app.client_model</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">kanban,tree,form</field>
     </record>
 
 

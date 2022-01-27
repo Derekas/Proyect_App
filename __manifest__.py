@@ -27,7 +27,7 @@
         'security/ir.model.access.csv',
         'views/article_view.xml',
         'views/client_view.xml',
-        'views/invoice_view.xml',  
+        'views/invoice_view.xml',
         'views/refund_view.xml',      
         'views/templates.xml',
     ],
