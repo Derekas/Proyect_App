@@ -24,7 +24,7 @@
                   
                   <field name="product_id" />
                   <field name="quantity" />
-                  
+                  <field name="extras_ids" />
                 </group>
               </form>
               <tree>
@@ -51,6 +51,7 @@
           <field name="vat"/>
           <field name="total"/>
           <field name="client_id"/>
+          <field name="status"/>
         </tree>
       </field>
     </record>
@@ -63,6 +64,7 @@
           <field name="reference"/>
           <field name="total"/>
           <field name="client_id"/>
+          <field name="status"/>
       </calendar>
       </field>
     </record>
@@ -78,7 +80,7 @@
           <field name="base"/>
           <field name="vat"/>
           <field name="total" type="measure"/>
-          
+          <field name="status"/>
         </pivot>
       </field>
     </record>
@@ -90,6 +92,7 @@
           <field name="client_id" type="row"/>
           <field name="date" interval="month"/>
           <field name="total" type="measure" />
+          <field name="status" type="row" />
         </graph>
       </field>
     </record>
@@ -100,6 +103,19 @@
       <field name="prefix"></field>
       <field name="padding">3</field>
   </record>
+
+  <record model="ir.ui.view" id="dealer_app.invoice_model_search">
+    <field name="name">Task Filters</field>
+    <field name="model">dealer_app.invoice_model</field>
+    <field name="arch" type="xml">
+    <search>
+      <field name="status"/>
+        <filter string="Confirm" name="status" domain="[('status','=','Confirm')]"/>
+      <field name="total"/>
+        <filter string="total" name="Total" domain="[('total','>=',100000)]"/>
+      </search>
+    </field>
+    </record>
 
     <!-- actions opening views on models -->
 

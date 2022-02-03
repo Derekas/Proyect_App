@@ -19,7 +19,20 @@ class RefundModel(models.Model):
     lines_ids=fields.One2many("dealer_app.lines_model","refund_id",string="Lines")
     client_id=fields.Many2one("dealer_app.client_model",string="Client")
 
-    
+    def confirm(self):
+        self.ensure_one()
+        self._cr.autocommit(False)
+        if self.status=="Draft":
+            self.status="Confirm"
+            for rec in self.lines_ids:
+                if rec.quantity <=rec.product_id.stock:
+                    rec.product_id.stock += rec.quantity
+                else:
+                    raise ValidationError("There is no Stock of "+rec.product_id.name+"!")
+        self._cr.commit()
+        self._cr.autocommit(True)
+        return True
+
     @api.depends("lines_ids")
     def _check_base(self):
         sum = 0
@@ -42,9 +55,7 @@ class RefundModel(models.Model):
                     raise ValidationError("There is no Stock of "+rec.product_id.name+"!")
         return True
 
-    def confirm(self):
-        self.status="Confirm"
-        return True
+    
     @api.model 
     def create(self, vals): 
      

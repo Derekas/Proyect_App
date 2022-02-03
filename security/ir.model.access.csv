@@ -4,3 +4,5 @@ access_dealer_app_client_model,dealer_app.client_model,model_dealer_app_client_m
 access_dealer_app_invoice_model,dealer_app.invoice_model,model_dealer_app_invoice_model,base.group_user,1,1,1,1
 access_dealer_app_refund_model,dealer_app.refund_model,model_dealer_app_refund_model,base.group_user,1,1,1,1
 access_dealer_app_lines_model,dealer_app.lines_model,model_dealer_app_lines_model,base.group_user,1,1,1,1
+access_dealer_app_extras_model,dealer_app.extras_model,model_dealer_app_extras_model,base.group_user,1,1,1,1
+access_dealer_app_category_model,dealer_app.category_model,model_dealer_app_category_model,base.group_user,1,1,1,1

@@ -13,6 +13,8 @@ class LinesModel(models.Model):
     invoice_id= fields.Many2one("dealer_app.invoice_model",string="Invoice",help="Invoice reference")
     product_id=fields.Many2one("dealer_app.article_model",string="Article",help="Product reference")
     refund_id= fields.Many2one("dealer_app.refund_model",string="Refund",help="Refund reference")
+    extras_ids= fields.Many2many("dealer_app.extras_model",string="Extras")
+
     
     
 #     @api.depends('value')

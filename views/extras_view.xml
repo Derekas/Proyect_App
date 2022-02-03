@@ -2,13 +2,12 @@
   <data>
     <!-- explicit list view definition -->
 
-    <record model="ir.ui.view" id="dealer_app.article_model_list">
-      <field name="name">Article List</field>
-      <field name="model">dealer_app.article_model</field>
+    <record model="ir.ui.view" id="dealer_app.extras_model_list">
+      <field name="name">Extras List</field>
+      <field name="model">dealer_app.extras_model</field>
       <field name="arch" type="xml">
-        <tree decoration-danger="stock &lt; 10">
+        <tree>
           <field name="name"/>
-          <field name="category_id"/>
           <field name="description"/>
           <field name="price"/>
           <field name="stock"/>
@@ -16,9 +15,9 @@
       </field>
     </record>
 
-    <record model="ir.ui.view" id="dealer_app.article_model_kanban">
+    <record model="ir.ui.view" id="dealer_app.extras_model_kanban">
       <field name="name">Kanban List</field>
-      <field name="model">dealer_app.article_model</field>
+      <field name="model">dealer_app.extras_model</field>
       <field name="arch" type="xml">
         <kanban class="o_res_partner_kanban">
           <field name="name" />
@@ -50,23 +49,12 @@
       </field>
     </record>
 
-    <record model="ir.ui.view" id="dealer_app.article_model_search">
-      <field name="name">Task Filters</field>
-      <field name="model">dealer_app.article_model</field>
-      <field name="arch" type="xml">
-      <search>
-        <field name="stock"/>
-          <filter string="stock" name="Stock" domain="[('stock','>=',1)]"/>
-        </search>
-      </field>
-      </record>
-
     <!-- actions opening views on models -->
 
-    <record model="ir.actions.act_window" id="dealer_app.action_window_article">
-      <field name="name">Article Windows</field>
-      <field name="res_model">dealer_app.article_model</field>
-      <field name="view_mode">tree,form</field>
+    <record model="ir.actions.act_window" id="dealer_app.action_window_extras">
+      <field name="name">Extras Windows</field>
+      <field name="res_model">dealer_app.extras_model</field>
+      <field name="view_mode">kanban,tree,form</field>
     </record>
 
 
@@ -88,14 +76,10 @@
 
     <!-- Top menu item -->
 
-    <menuitem name="dealer_app" id="dealer_app.menu_root"/>
-
     <!-- menu categories -->
-
-    <menuitem name="Operations" id="dealer_app.menu_operations" parent="dealer_app.menu_root"/>
     <!-- actions -->
 
-    <menuitem name="Articles" id="dealer_app.menu_article_list" parent="dealer_app.menu_operations"
-              action="dealer_app.action_window_article"/>
+    <menuitem name="Extras" id="dealer_app.menu_extras_list" parent="dealer_app.menu_operations"
+              action="dealer_app.action_window_extras"/>
   </data>
 </odoo>

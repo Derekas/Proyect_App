@@ -47,6 +47,10 @@ class InvoiceModel(models.Model):
         sum = 0
         for line in self.lines_ids:
             sum += line.product_id.price*line.quantity
+        for lin in self.lines_ids:
+            for extras in lin.extras_ids:
+
+                sum += extras.price*lin.quantity
         self.base = sum
 
     @api.depends("base", "vat")
