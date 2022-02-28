@@ -1,0 +1,160 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="dealer_app.invoice_model_form">
+      <field name="name">Invoice Form</field>
+      <field name="model">dealer_app.invoice_model</field>
+      <field name="arch" type="xml">
+        <form string="Invoice">
+        <form>
+          <header>
+            <button type="object" name="confirm" string="Confirm" class="oe_highlight"/>
+            <field name="status" widget="statusbar" />
+          </header>
+          <sheet>
+            
+            <group>
+              <field name="reference" attrs="{'readonly' :[('status','=','Confirm')]}" />
+              <field name="date" attrs="{'readonly' :[('status','=','Confirm')]}" />
+              <field name="base" attrs="{'readonly' :[('status','=','Confirm')]}" />
+              <field name="vat" attrs="{'readonly' :[('status','=','Confirm')]}" />
+              <field name="total" attrs="{'readonly' :[('status','=','Confirm')]}"/>
+              <field name="lines_ids" attrs="{'readonly' :[('status','=','Confirm')]}">
+                <form>
+                <group>
+                  
+                  <field name="product_id" />
+                  <field name="quantity" />
+                  <field name="extras_ids" />
+                </group>
+              </form>
+
+                  <tree>
+                    <field name="product_id" />
+                    <field name="quantity" />
+                    </tree>
+
+                    
+              </field>
+              
+              <field name="client_id" attrs="{'readonly' :[('status','=','Confirm')]}"/>
+            
+            </group>
+          
+          
+          
+          </sheet>
+        </form>
+        </form>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="dealer_app.invoice_model_list">
+      <field name="name">Invoice List</field>
+      <field name="model">dealer_app.invoice_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="reference"/>
+          <field name="date"/>
+          <field name="base"/>
+          <field name="vat"/>
+          <field name="total"/>
+          <field name="client_id"/>
+          <field name="status"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="dealer_app.invoice_calendar">
+      <field name="name">Invoice Calendar</field>
+      <field name="model">dealer_app.invoice_model</field>
+      <field name="arch" type="xml">
+        <calendar date_start="date" color="client_id" mode="month" event_open_popup="True" form_view_id="invoices_app.invoice_model_form" quick_add="False">
+          <field name="reference"/>
+          <field name="total"/>
+          <field name="client_id"/>
+          <field name="status"/>
+      </calendar>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="dealer_app.invoice_pivot">
+      <field name="name">Invoice Pivot</field>
+      <field name="model">dealer_app.invoice_model</field>
+      <field name="arch" type="xml">
+        <pivot>
+          <field name="client_id" type="row"/>
+          <field name="date"/>
+          <field name="lines_ids"/>
+          <field name="base"/>
+          <field name="vat"/>
+          <field name="total" type="measure"/>
+          <field name="status"/>
+        </pivot>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="dealer_app.invoice_graph">
+      <field name="name">Invoice Graph</field>
+      <field name="model">dealer_app.invoice_model</field>
+      <field name="arch" type="xml">
+        <graph type="bar">
+          <field name="client_id" type="row"/>
+          <field name="date" interval="month"/>
+          <field name="total" type="measure" />
+          <field name="status" type="row" />
+        </graph>
+      </field>
+    </record>
+
+    <record id="reference_test" model="ir.sequence">
+      <field name="name">Reference Test</field>
+      <field name="code">reference.test</field>
+      <field name="prefix"></field>
+      <field name="padding">3</field>
+  </record>
+
+  <record model="ir.ui.view" id="dealer_app.invoice_model_search">
+    <field name="name">Task Filters</field>
+    <field name="model">dealer_app.invoice_model</field>
+    <field name="arch" type="xml">
+    <search>
+      <field name="status"/>
+        <filter string="Confirm" name="status" domain="[('status','=','Confirm')]"/>
+      <field name="total"/>
+        <filter string="total" name="Total" domain="[('total','>=',100000)]"/>
+      </search>
+    </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="dealer_app.action_window_invoice">
+      <field name="name">Invoice Windows</field>
+      <field name="res_model">dealer_app.invoice_model</field>
+      <field name="view_mode">tree,form,calendar,graph,pivot</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="dealer_app.action_server">
+      <field name="name">dealer_app server</field>
+      <field name="model_id" ref="model_dealer_app_dealer_app"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+
+    <menuitem name="Invoice" id="dealer_app.menu_invoice_list" parent="dealer_app.menu_operations"
+              action="dealer_app.action_window_invoice"/>
+  </data>
+</odoo>

@@ -1,0 +1,127 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="dealer_app.refund_model_form">
+      <field name="name">Refund Form</field>
+      <field name="model">dealer_app.refund_model</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button type="object" name="confirm" string="Confirm" class="oe_highlight"/>
+            <field name="status" widget="statusbar" />
+          </header>
+          <sheet>
+            <group>
+              <field name="reference" attrs="{'readonly' :[('status','=','Confirm')]}"/>
+              <field name="date" attrs="{'readonly' :[('status','=','Confirm')]}"/>
+              <field name="base" attrs="{'readonly' :[('status','=','Confirm')]}"/>
+              <field name="vat" attrs="{'readonly' :[('status','=','Confirm')]}"/>
+              <field name="total" attrs="{'readonly' :[('status','=','Confirm')]}"/>
+              <field name="lines_ids" attrs="{'readonly' :[('status','=','Confirm')]}">
+                <form>
+                  <group>
+                    <field name="product_id" />
+                    <field name="quantity" />
+                  </group>
+                </form>
+                </field>
+                <field name="client_id" attrs="{'readonly' :[('status','=','Confirm')]}"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="dealer_app.refund_model_list">
+      <field name="name">Refund List</field>
+      <field name="model">dealer_app.refund_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="reference"/>
+          <field name="date"/>
+          <field name="base"/>
+          <field name="vat"/>
+          <field name="total"/>
+          <field name="client_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="dealer_app.refund_pivot">
+      <field name="name">Refund Pivot</field>
+      <field name="model">dealer_app.refund_model</field>
+      <field name="arch" type="xml">
+        <pivot>
+          <field name="client_id" type="row"/>
+          <field name="date"/>
+          <field name="lines_ids"/>
+          <field name="base"/>
+          <field name="vat"/>
+          <field name="total" type="measure"/>
+          
+        </pivot>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="dealer_app.refund_graph">
+      <field name="name">Refund Graph</field>
+      <field name="model">dealer_app.refund_model</field>
+      <field name="arch" type="xml">
+        <graph type="bar">
+          <field name="client_id" type="row"/>
+          <field name="date" interval="month"/>
+          <field name="total" type="measure" />
+        </graph>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="dealer_app.refund_calendar">
+      <field name="name">Refund Calendar</field>
+      <field name="model">dealer_app.refund_model</field>
+      <field name="arch" type="xml">
+        <calendar date_start="date" color="client_id" mode="month" event_open_popup="True" form_view_id="invoices_app.invoice_model_form" quick_add="False">
+          <field name="reference"/>
+          <field name="total"/>
+          <field name="client_id"/>
+      </calendar>
+      </field>
+    </record>
+
+    <record id="reference_test" model="ir.sequence">
+      <field name="name">Reference Test</field>
+      <field name="code">reference.test</field>
+      <field name="prefix"></field>
+      <field name="padding">3</field>
+  </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="dealer_app.action_window_refund">
+      <field name="name">Refund Windows</field>
+      <field name="res_model">dealer_app.refund_model</field>
+      <field name="view_mode">tree,form,calendar,graph,pivot</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="dealer_app.action_server">
+      <field name="name">dealer_app server</field>
+      <field name="model_id" ref="model_dealer_app_dealer_app"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+
+    <menuitem name="Refund" id="dealer_app.menu_refund_list" parent="dealer_app.menu_operations"
+              action="dealer_app.action_window_refund"/>
+  </data>
+</odoo>

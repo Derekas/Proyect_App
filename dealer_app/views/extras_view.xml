@@ -1,0 +1,86 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    
+    <record model="ir.ui.view" id="dealer_app.extras_model_list">
+      <field name="name">Extras List</field>
+      <field name="model">dealer_app.extras_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="description"/>
+          <field name="price"/>
+          <field name="stock"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="dealer_app.extras_model_kanban">
+      <field name="name">Kanban List</field>
+      <field name="model">dealer_app.extras_model</field>
+      <field name="arch" type="xml">
+        <kanban class="o_res_partner_kanban">
+          <field name="name" />
+          <field name="description" />
+          <field name="price" />
+          <field name="stock" />
+          <field name="photo" />
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_global_click">
+                <div class="o_kanban_image">
+                  <field name="photo" nolabel="1" widget="image" class="oe_right oe_avatar" />
+                </div>
+                <div class="oe_kanban_details">
+                  <strong>
+                    <field name="name" class="oe_inline" />
+                  </strong>
+                  <div t-if="record.stock.value">
+                    <t t-esc="record.stock.value" />
+                  </div>
+                  <div t-if="record.price.value">
+                    <t t-esc="record.price.value" />
+                  </div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="dealer_app.action_window_extras">
+      <field name="name">Extras Windows</field>
+      <field name="res_model">dealer_app.extras_model</field>
+      <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="dealer_app.action_server">
+      <field name="name">dealer_app server</field>
+      <field name="model_id" ref="model_dealer_app_dealer_app"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+
+    <!-- menu categories -->
+    <!-- actions -->
+
+    <menuitem name="Extras" id="dealer_app.menu_extras_list" parent="dealer_app.menu_operations"
+              action="dealer_app.action_window_extras"/>
+  </data>
+</odoo>

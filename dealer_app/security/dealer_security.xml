@@ -1,0 +1,17 @@
+<odoo>
+    <record id="module_dealer_category" model="ir.module.category">
+    <field name="name">Dealer</field>
+    </record>
+    <!-- Dealer User Group -->
+    <record id="dealer_group_adm" model="res.groups">
+    <field name="name">Administrativo</field>
+    <field name="category_id" ref="module_dealer_category"/>
+    <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <!-- Dealer Factultativo Group -->
+    <record id="dealer_group_client" model="res.groups">
+    <field name="name">Clients</field>
+    <field name="category_id" ref="module_dealer_category"/>
+    <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    </odoo>
